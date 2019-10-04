@@ -36,7 +36,7 @@ class SettingsScreen extends React.Component {
   render(){
     return (
       <View>
-        <Text>test: </Text>
+        <Text>Settings page: WIP </Text>
       </View>
       )
   }
@@ -64,7 +64,7 @@ export default class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-    ddTest: "Loading"
+    batteryChart: []
     }
     this.updateDrillDown = this.updateDrillDown.bind(this)
   }
@@ -74,7 +74,8 @@ export default class App extends React.Component {
     return fetch('https://boatbutlerfunctionapp.azurewebsites.net/api/device/e00fce685be17a37c00ccb56/history?code=ToomhKaofx/wI4YU2GoBbCjIu9MJS9RLGrZ5RXGsgTe5VIGhuECUqA==')
     .then((response) => response.json())
     .then((responseJson) =>{
-      this.updateDrillDown(responseJson[0].Voltage)
+      console.log(responseJson)
+      this.updateDrillDown(responseJson)
     })
     .catch(function(error){
       console.log(error.message)
@@ -82,12 +83,12 @@ export default class App extends React.Component {
     })
   }
 
-  updateDrillDown(num){
-    this.setState({ddTest: num})
+  updateDrillDown(data){
+    this.setState({batteryChart: data})
   }
 
   render() {
-    return <AppContainer screenProps={{ddTest:this.state.ddTest, updateDrillDown: this.updateDrillDown, getBatteryDrillDown: this.getBatteryDrillDown}} />;
+    return <AppContainer screenProps={{batteryChart:this.state.batteryChart, updateDrillDown: this.updateDrillDown, getBatteryDrillDown: this.getBatteryDrillDown}} />;
   }
 }
 

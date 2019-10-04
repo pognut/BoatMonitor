@@ -9,9 +9,9 @@ export default class Tile extends Component {
   render() {
     return (
       <View style={this.props.tileStyle}>
-            <Text>{this.props.title}</Text>
+            <Text style={{textAlign: 'center', paddingBottom:6}}>{this.props.title}</Text>
             {this.props.content.map((line, index)=>
-              <Text style={this.props.contentStyle}>{line.text} -- {line.value}</Text>
+              <Text key={index} style={this.props.contentStyle}>{line.text} -- {line.value}</Text>
             )}
 
 

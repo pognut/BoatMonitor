@@ -90,23 +90,28 @@ export default class MainScreen extends React.Component {
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             style={styles.scrollView}>
-          {/*change to be closer to theo's mockup*/}
 
             {global.HermesInternal == null ? null : (
               <View style={styles.engine}>
                 <Text style={styles.footer}>Engine: Hermes</Text>
               </View>
             )}
-            <View style={styles.body}>
-              {/*These three views will be replaced with Tile components with the props passed down*/}
 
-              {/*move touchablehighlight component from tile to here*/}
+            <View>
+              <Text style={styles.name}>
+                Boat Monitor
+              </Text>
+            </View>
+            <View style={styles.body}>
+
+              <Tile tileStyle={styles.tile} contentStyle={styles.tileData} content={[this.state.CheckinsInLastWeek, this.state.LatestCheckinTime]} title={"Device Health"} navigation={this.props.navigation} />
               <TouchableHighlight onPress = {() => this.props.navigation.navigate('DrillDown')}>
-                <Tile tileStyle={styles.tile} contentStyle={styles.tileData} content={[this.state.CheckinsInLastWeek, this.state.LatestCheckinTime]} title={"Battery"} navigation={this.props.navigation} />
+                <Tile tileStyle={styles.tile} contentStyle={styles.tileData} content={[this.state.LatestCheckinVoltage, this.state.HighestCheckinVoltage, this.state.HighestCheckinVoltageTime, this.state.LowestCheckinVoltage, this.state.LowestCheckinVoltageTime]} title={"Battery"} navigation={this.props.navigation}/>
               </TouchableHighlight>
-              <Tile tileStyle={styles.tile} contentStyle={styles.tileData} content={[this.state.LatestCheckinVoltage, this.state.HighestCheckinVoltage, this.state.HighestCheckinVoltageTime, this.state.LowestCheckinVoltage, this.state.LowestCheckinVoltageTime]} title={"Bilge"} navigation={this.props.navigation}/>
-              <Button onPress={this.getTileData} title="Refresh" color="#841584"/>
-              <Button onPress={() => this.props.navigation.navigate('Settings')} title="Settings"/>
+            </View>
+            <View style={styles.homeButtons}>
+              <Button onPress={this.getTileData} title="Refresh"/>
+              <Button  onPress={() => this.props.navigation.navigate('Settings')} title="Settings"/>
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -119,12 +124,17 @@ export default class MainScreen extends React.Component {
     scrollView: {
       backgroundColor: Colors.lighter,
     },
+    name: {
+      textAlign: 'center',
+      fontWeight: 'bold',
+      paddingTop: 12,
+    },
     engine: {
       position: 'absolute',
       right: 0,
     },
     body: {
-      backgroundColor: Colors.gray,
+
     },
     sectionContainer: {
       marginTop: 32,
@@ -161,9 +171,15 @@ export default class MainScreen extends React.Component {
       flex: 1,
     },
     tileData:{
-      textAlign: 'center'
+      textAlign: 'center',
+      paddingTop: 3
     },
     container: {
       flex: 1,
+      backgroundColor: Colors.gray,
+    },
+    homeButtons: {
+      marginTop: 24,
+      marginHorizontal: 24,
     },
   });

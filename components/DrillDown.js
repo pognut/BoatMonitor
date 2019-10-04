@@ -3,7 +3,8 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView
 } from 'react-native';
 
 export default class DrillDown extends Component {
@@ -19,10 +20,14 @@ export default class DrillDown extends Component {
 
   render(){
     return(
-        <View>
-          <Text>{this.props.screenProps.ddTest}</Text>
-          <Text>{JSON.stringify(this.props.navigation.getParam('stuff', 'test'))}</Text>
-        </View>
+        <ScrollView>
+          <Text style={{textAlign: 'center', paddingBottom: 3}}>
+            Battery Voltage History
+          </Text>
+          {this.props.screenProps.batteryChart.map((line, index)=>
+              <Text key={index} style={{textAlign: 'center', paddingTop: 3}}>{line.Voltage} -- {line.Published_At}</Text>
+            )}
+        </ScrollView>
       )
   }
 }
